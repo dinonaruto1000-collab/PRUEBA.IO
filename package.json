@@ -5,9 +5,13 @@
   "main": "server/server.js",
   "scripts": {
     "build": "gulp build",
-    "start": "gulp run",
+    "start": "node bin/server/server.js",
+    "dev": "gulp run",
     "watch": "gulp watch",
     "test": "gulp test"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "repository": {
     "type": "git",
