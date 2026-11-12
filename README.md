@@ -1,130 +1,203 @@
-Agar.io Clone
-=============
+<p align="center">
+  <img src="screenshot.png" alt="Agar.io Clone Banner" width="700" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+</p>
 
-This project was originally created by @huytd. I have since taken ownership of the repository to revive the project.
+<h1 align="center">🦠 Agar.io Clone (Node.js & Canvas)</h1>
 
-[![GitHub Stars](https://img.shields.io/github/stars/huytd/agar.io-clone.svg)](https://github.com/huytd/agar.io-clone/stargazers)
-[![GitHub Issues](https://img.shields.io/github/issues/huytd/agar.io-clone.svg)](https://github.com/huytd/agar.io-clone/issues)
-[![GitHub Wiki](https://img.shields.io/badge/project-wiki-ff69b4.svg)](https://github.com/huytd/agar.io-clone/wiki/Home)
-[![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](#live-demos)
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/huytd/agar.io-clone?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+<p align="center">
+  <strong>Un clon multijugador rápido, ligero y en tiempo real de Agar.io desarrollado con Node.js, Express, Socket.IO y HTML5 Canvas.</strong>
+</p>
 
-A simple but powerful Agar.IO clone built with socket.IO and HTML5 canvas on top of NodeJS.
-
-![Image](screenshot.png)
-
-## Live Demos
-An updated live list of demos can be found on the [Live Demos wiki page](https://github.com/owenashurst/agar.io-clone/wiki/Live-Demos).
-
-This is the most up to date version from master. Any merged pull requests will deploy to this URL automatically.
+<p align="center">
+  <a href="https://github.com/huytd/agar.io-clone"><img src="https://img.shields.io/badge/Original%20Repo-huytd%2Fagar.io--clone-blue?style=flat-square&logo=github" alt="Original Repo"/></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg?style=flat-square" alt="License: MIT"/></a>
+  <a href="MIT-LEGACY.md"><img src="https://img.shields.io/badge/Attribution-MIT%20Legacy-orange?style=flat-square" alt="MIT Legacy"/></a>
+  <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-%3E%3D18.0.0-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node.js"/></a>
+  <a href="https://render.com"><img src="https://img.shields.io/badge/Deploy%20on-Render-46E3B7?style=flat-square&logo=render&logoColor=black" alt="Render"/></a>
+</p>
 
 ---
 
-## How to Play
-You can check out how to play on our [wiki](https://github.com/owenashurst/agar.io-clone/wiki/How-to-Play).
+## 📌 Tabla de Contenidos
 
-#### Game Basics
-- Move your mouse around the screen to move your cell.
-- Eat food and other players in order to grow your character (food respawns every time a player eats it).
-- A player's **mass** is the number of food particles eaten.
-- **Objective**: Try to get as big as possible and eat other players.
-
-#### Gameplay Rules
-- Players who haven't eaten yet cannot be eaten as a sort of "grace" period. This invincibility fades once they gain mass.
-- Everytime a player joins the game, **3** food particles will spawn.
-- Everytime a food particle is eaten by a player, **1** new food particle will respawn.
-- The more food you eat, the slower you move to make the game fairer for all.
+- [Acerca del Proyecto](#-acerca-del-proyecto)
+- [Reconocimiento y Autoría Original](#-reconocimiento-y-autoría-original)
+- [Últimas Actualizaciones y Modernización](#-últimas-actualizaciones-y-modernización)
+- [Características Principales](#-características-principales)
+- [Mecánicas de Juego](#-mecánicas-de-juego)
+- [Manual de Instalación y Ejecución Local](#-manual-de-instalación-y-ejecución-local)
+- [Despliegue en la Nube (Render PaaS)](#-despliegue-en-la-nube-render-paas)
+- [Configuración del Juego](#-configuración-del-juego)
+- [Licencia](#-licencia)
 
 ---
 
-## Latest Changes
-- Game logic is handled by the server
-- The client side is for rendering of the canvas and its items only.
-- Mobile optimisation.
-- Implementation of working viruses.
-- Display player name.
-- Now supporting chat. 
-- Type`-ping` in the chatbox to check your ping, as well as other commands!
+## 📖 Acerca del Proyecto
+
+Este proyecto es una implementación abierta y completa del popular juego **Agar.io**. Diseñado con fines educativos y comunitarios, permite a los desarrolladores y jugadores desplegar su propio servidor de juego en cuestión de minutos, personalizar las reglas y divertirse con amigos en una red local o en la nube.
 
 ---
 
-## Installation
-You can simply click one of the buttons below to easily deploy this repo to Bluemix or Heroku:
+## 🏆 Reconocimiento y Autoría Original
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+Este proyecto es un fork continuado y modernizado del código fuente original:
 
-Or...
+- **Autor Original y Creador**: **Huy Tran** ([@huytd](https://github.com/huytd))
+- 🔗 **Repositorio Original en GitHub**: [https://github.com/huytd/agar.io-clone](https://github.com/huytd/agar.io-clone)
+- **Mantenedor Posterior**: Owen Ashurst ([@owenashurst](https://github.com/owenashurst/agar.io-clone))
 
->You can check out a more detailed setup tutorial on our [wiki](https://github.com/owenashurst/agar.io-clone/wiki/Setup).
+Todos los derechos intelectuales de la arquitectura base, cliente canvas y diseño pertenecen a Huy Tran y a la comunidad de colaboradores. Puedes consultar el aviso legal de atribución en el archivo [MIT-LEGACY.md](MIT-LEGACY.md).
 
-#### Requirements
-To run / install this game, you'll need: 
-- NodeJS with NPM installed.
-- socket.IO.
-- Express.
+---
 
+## 🚀 Últimas Actualizaciones y Modernización
 
-#### Downloading the dependencies
-After cloning the source code from Github, you need to run the following command to download all the dependencies (socket.IO, express, etc.):
+En esta versión se implementaron mejoras clave en la arquitectura y despliegue del proyecto:
 
+1. **Migración fuera de Docker hacia Alojamiento PaaS Nativo**:
+   - Se removió la dependencia de contenedores Docker (`Dockerfile`, `docker-compose.yml`, `.dockerignore`) para simplificar drásticamente el flujo de trabajo y reducir el consumo de recursos.
+   - Compatibilidad nativa directa con plataformas PaaS como **Render** y **Railway**.
+2. **Infraestructura como Código con `render.yaml`**:
+   - Integración de Blueprint para despliegue automatizado en Render con 1 solo clic.
+3. **Estandarización de Comandos en `package.json`**:
+   - `npm start`: Ahora ejecuta directamente el servidor en producción (`node bin/server/server.js`), ideal para entornos en la nube.
+   - `npm run dev`: Mantiene el entorno de desarrollo con recarga en caliente vía `nodemon`.
+   - `npm run build`: Pipeline completo de compilación de frontend con Webpack y backend con Babel.
+4. **Actualización a Versiones Modernas de Node.js**:
+   - Soporte verificado y garantizado para Node.js 18 LTS, 20 LTS y versiones posteriores.
+5. **CI/CD Automatizado**:
+   - Sustitución de workflows obsoletos de Docker por pruebas continuas automatizadas con GitHub Actions en [.github/workflows/node.js.yml](.github/workflows/node.js.yml).
+
+---
+
+## ✨ Características Principales
+
+- 🌐 **Multijugador en tiempo real**: Sincronización continua de clientes mediante WebSockets (`socket.io`).
+- 🎨 **Renderizado fluido en HTML5 Canvas**: Optimizado tanto para escritorio como para pantallas táctiles/móviles.
+- 💬 **Chat en vivo integrado**: Soporte de chat entre jugadores con comandos (ej: `-ping`).
+- 🦠 **Virus y división de células**: Mecánica completa de virus que fragmentan a células gigantes.
+- 🏆 **Tabla de posiciones (Leaderboard)**: Clasificación de los mejores jugadores en tiempo real.
+- 🗄️ **Base de datos SQLite**: Registro ligero de logs e intentos de inicio de sesión.
+
+---
+
+## 🎮 Mecánicas de Juego
+
+- **Moverse**: Mueve el cursor del ratón sobre la pantalla para dirigir tu célula.
+- **Crecer**: Come partículas de comida esparcidas por el mapa y absorbe a otros jugadores más pequeños.
+- **Masa y Velocidad**: A mayor masa acumulada, menor velocidad de movimiento para balancear la partida.
+- **Período de Gracia**: Los jugadores recién ingresados cuentan con inmunidad temporal hasta que comienzan a ganar masa.
+
+---
+
+## 🛠️ Manual de Instalación y Ejecución Local
+
+Sigue estos sencillos pasos para correr el juego en tu propia computadora:
+
+### 1. Requisitos Previos
+
+Asegúrate de tener instalado en tu sistema:
+- [Node.js](https://nodejs.org/) (Versión **18.x**, **20.x** o superior).
+- `npm` (incluido automáticamente con Node.js).
+- `git` para clonar el repositorio.
+
+### 2. Clonar el Repositorio
+
+Abre tu terminal y ejecuta:
+
+```bash
+git clone https://github.com/owenashurst/agar.io-clone.git
+cd agar.io-clone
 ```
+
+### 3. Instalar Dependencias
+
+Descarga los paquetes necesarios:
+
+```bash
 npm install
 ```
 
-#### Running the Server
-After downloading all the dependencies, you can run the server with the following command:
+### 4. Ejecutar el Servidor
 
+Tienes dos maneras de correrlo según tu necesidad:
+
+#### A) Modo Desarrollo (Con auto-recarga al editar código)
+```bash
+npm run dev
 ```
+
+#### B) Modo Producción (Compilación limpia y ejecución directa)
+```bash
+npm run build
 npm start
 ```
 
-The game will then be accessible at `http://localhost:3000`. The default port is `3000`, however this can be changed in config. Further elaboration is available on our [wiki](https://github.com/owenashurst/agar.io-clone/wiki/Setup).
+### 5. Jugar
 
-
-### Running the Server with Docker
-If you have [Docker](https://www.docker.com/) installed, after cloning the repository you can run the following commands to start the server and make it acessible at `http://localhost:3000`:
-
+Una vez que la terminal indique:
+```text
+[DEBUG] Listening on 0.0.0.0:3000
 ```
-docker build -t agarioclone_agar .
-docker run -it -p 3000:3000 agarioclone_agar
+Abre tu navegador e ingresa a:
+👉 **[http://localhost:3000](http://localhost:3000)**
+
+Escribe tu nombre de jugador y haz clic en **Play**.
+
+> [!TIP]
+> **¿Puerto 3000 ocupado?**  
+> Si recibes el error `EADDRINUSE: address already in use`, puedes cambiar el puerto en [config.js](config.js) o definirlo antes de iniciar:
+> - En **Windows (PowerShell)**: `$env:PORT=3005; npm start`
+> - En **Linux/macOS**: `PORT=3005 npm start`
+
+---
+
+## ☁️ Despliegue en la Nube (Render PaaS)
+
+El proyecto está preparado para desplegarse sin Docker en la capa gratuita de [Render](https://render.com).
+
+### Despliegue con 1 Clic (Blueprint)
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy)
+
+1. Haz clic en el botón de arriba o conecta tu repositorio en Render como **Blueprint**.
+2. Render leerá automáticamente la configuración de [render.yaml](render.yaml).
+3. ¡Tu juego estará en línea con HTTPS y WebSockets en minutos!
+
+### Configuración Manual en Render
+
+1. En el panel de Render, selecciona **New > Web Service**.
+2. Conecta tu repositorio de GitHub.
+3. Especifica los siguientes valores:
+   - **Environment / Runtime**: `Node`
+   - **Build Command**: `npm install && npm run build`
+   - **Start Command**: `npm start`
+   - **Plan**: `Free`
+4. Haz clic en **Create Web Service**.
+
+---
+
+## ⚙️ Configuración del Juego
+
+Puedes personalizar parámetros como el tamaño del mapa, la masa de inicio, la densidad de comida o virus editando el archivo [config.js](config.js):
+
+```javascript
+module.exports = {
+    host: "0.0.0.0",
+    port: 3000,
+    gameWidth: 5000,
+    gameHeight: 5000,
+    defaultPlayerMass: 10,
+    maxFood: 1000,
+    maxVirus: 50,
+    limitSplit: 16
+    // ...
+};
 ```
 
 ---
 
-## FAQ
-1. **What is this game?**
+## 📄 Licencia
 
-  This is a clone of the game [Agar.IO](http://agar.io/). Someone said that Agar.IO is a clone of an iPad game called Osmos, but we haven't tried it yet. (Cloneception? :P)
-  
-2. **Why would you make a clone of this game?**
-
-  Well, while the original game is still online, it is closed-source, and sometimes, it suffers from massive lag. That's why we want to make an open source version of it: for educational purposes, and to let the community add the features that they want, self-host it on their own servers, have fun with friends and more.
-  
-3. **Any plans on adding an online server to compete with Agar.IO or making money out of it?**
-
-  No. This game belongs to the open-source community, and we have no plans on making money out of it nor competing with anything. But you can of course create your own public server, let us know if you do so and we can add it to our Live Demos list!
-  
-4. **Can I deploy this game to my own server?**
-
-  Sure you can! That's what it's made for! ;)
-  
-5. **I don't like HTML5 canvas. Can I write my own game client with this server?**
-
-  Of course! As long as your client supports WebSockets, you can write your game client in any language/technology, even with Unity3D if you want (there is an open source library for Unity to communicate with WebSockets)!
-  
-6. **Can I use some code of this project on my own?**
-
-  Yes you can.
-
-## For Developers
- - [Game Architecture](https://github.com/owenashurst/agar.io-clone/wiki/Game-Architecture) to understand how the backend works.
- - If you want to start your own project, I recommend you use [this template](https://github.com/huytd/node-online-game-template). Happy developing!
- -
-
-## TODOs
- We have an explicit [TODO](https://github.com/owenashurst/agar.io-clone/wiki/Coming-Features) list for the all the features we aim to develop in the future. Feel free to contribute, we'll be more than grateful.
-
-## License
->You can check out the full license [here](https://github.com/owenashurst/agar.io-clone/blob/master/LICENSE).
-
-This project is licensed under the terms of the **MIT** license.
+Este proyecto está distribuido bajo los términos de la Licencia **MIT**.  
+Consulta el archivo [LICENSE](LICENSE) para ver el texto legal completo y [MIT-LEGACY.md](MIT-LEGACY.md) para el reconocimiento expreso al autor original **Huy Tran**.
