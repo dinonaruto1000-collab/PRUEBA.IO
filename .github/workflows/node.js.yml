@@ -92,10 +92,10 @@ jobs:
       # Garantiza que los archivos vitales de salida se hayan generado en /bin
       - name: "🔍 Verificar existencia de artefactos compilados"
         run: |
-          echo "Verificando archivos generados en /bin..."
-          test -f bin/server/server.js || { echo "❌ Error: Falta bin/server/server.js"; exit 1; }
-          test -f bin/client/js/app.js || { echo "❌ Error: Falta bin/client/js/app.js"; exit 1; }
-          test -f bin/client/index.html || { echo "❌ Error: Falta bin/client/index.html"; exit 1; }
+          echo "Verificando archivos generados en /dist..."
+          test -f dist/server/server.js || { echo "❌ Error: Falta dist/server/server.js"; exit 1; }
+          test -f dist/client/js/app.js || { echo "❌ Error: Falta dist/client/js/app.js"; exit 1; }
+          test -f dist/client/index.html || { echo "❌ Error: Falta dist/client/index.html"; exit 1; }
           echo "✅ Todos los artefactos de producción existen correctamente."
 
       # ------------------------------------------------------------------------
