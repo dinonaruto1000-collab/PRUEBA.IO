@@ -1,26 +1,119 @@
-name: Node.js CI
+# ==============================================================================
+# Nombre del Flujo de Trabajo: Integración Continua (CI) para Node.js
+# ==============================================================================
+# Propósito:
+#   Este workflow se encarga de verificar automáticamente la integridad y calidad
+#   del código del juego en cada cambio. Ejecuta pruebas unitarias, linting y la
+#   compilación completa del cliente y servidor en múltiples versiones de Node.js.
+# ==============================================================================
 
+name: Node.js CI (Integración Continua)
+
+# ------------------------------------------------------------------------------
+# 1. DISPARADORES (Triggers)
+# ------------------------------------------------------------------------------
 on:
+  # Se ejecuta automáticamente en cada push a las ramas principales
   push:
     branches: [ master, main ]
+
+  # Se ejecuta automáticamente en cada Pull Request hacia las ramas principales
   pull_request:
     branches: [ master, main ]
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+  # Permite ejecutar este flujo de forma manual desde la pestaña 'Actions' de GitHub
+  workflow_dispatch:
 
+# ------------------------------------------------------------------------------
+# 2. GESTIÓN DE CONCURRENCIA
+# ------------------------------------------------------------------------------
+# Si se realiza un nuevo commit en una misma rama o PR mientras una ejecución
+# anterior aún está en curso, se cancela la anterior para ahorrar minutos de cómputo.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# ------------------------------------------------------------------------------
+# 3. TRABAJOS (Jobs)
+# ------------------------------------------------------------------------------
+jobs:
+  test-and-build:
+    name: "Validación & Compilación (Node ${{ matrix.node-version }})"
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    # Matriz de versiones: Valida el código contra las versiones activas de Node.js LTS
     strategy:
       matrix:
-        node-version: [18.x, 20.x]
+        node-version: [18.x, 20.x, 22.x]
+      fail-fast: false  # Continúa ejecutando las demás versiones aunque una falle
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npm run build
-    - run: npm test
+      # ------------------------------------------------------------------------
+      # Paso 1: Clonar y descargar el código fuente del repositorio
+      # ------------------------------------------------------------------------
+      - name: "📥 Descargar repositorio (Checkout)"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
+      # ------------------------------------------------------------------------
+      # Paso 2: Configurar el entorno de Node.js con caché de dependencias
+      # ------------------------------------------------------------------------
+      - name: "⚙️ Configurar Node.js ${{ matrix.node-version }}"
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'  # Agiliza la instalación cacheando la carpeta ~/.npm
+
+      # ------------------------------------------------------------------------
+      # Paso 3: Instalación limpia y determinista de dependencias
+      # ------------------------------------------------------------------------
+      - name: "📦 Instalar dependencias exactas (npm ci)"
+        run: npm ci
+
+      # ------------------------------------------------------------------------
+      # Paso 4: Pruebas unitarias y análisis estático (Linter)
+      # ------------------------------------------------------------------------
+      # Ejecuta ESLint sobre el código fuente y las pruebas unitarias con Mocha
+      - name: "🧪 Ejecutar pruebas unitarias y Linter (npm test)"
+        run: npm test
+
+      # ------------------------------------------------------------------------
+      # Paso 5: Compilación de producción (Frontend & Backend)
+      # ------------------------------------------------------------------------
+      # Compila el cliente HTML5/Canvas con Webpack y transpila el servidor con Babel
+      - name: "🔨 Compilar proyecto para producción (npm run build)"
+        run: npm run build
+
+      # ------------------------------------------------------------------------
+      # Paso 6: Verificación de artefactos generados (Sanity Check)
+      # ------------------------------------------------------------------------
+      # Garantiza que los archivos vitales de salida se hayan generado en /bin
+      - name: "🔍 Verificar existencia de artefactos compilados"
+        run: |
+          echo "Verificando archivos generados en /bin..."
+          test -f bin/server/server.js || { echo "❌ Error: Falta bin/server/server.js"; exit 1; }
+          test -f bin/client/js/app.js || { echo "❌ Error: Falta bin/client/js/app.js"; exit 1; }
+          test -f bin/client/index.html || { echo "❌ Error: Falta bin/client/index.html"; exit 1; }
+          echo "✅ Todos los artefactos de producción existen correctamente."
+
+      # ------------------------------------------------------------------------
+      # Paso 7: Prueba de arranque del servidor (Smoke Test)
+      # ------------------------------------------------------------------------
+      # Inicia el servidor compilado por 5 segundos en un puerto de prueba
+      # para asegurar que no hay errores de sintaxis o fallas de inicio en runtime
+      - name: "🚀 Smoke Test: Prueba de inicio del servidor compilado"
+        run: |
+          echo "Iniciando servidor en modo prueba..."
+          PORT=3999 node bin/server/server.js &
+          SERVER_PID=$!
+          sleep 4
+          # Verifica que el proceso siga con vida tras arrancar
+          if ps -p $SERVER_PID > /dev/null; then
+            echo "✅ El servidor arrancó correctamente sin errores."
+            kill $SERVER_PID
+          else
+            echo "❌ El servidor falló al iniciar en runtime."
+            exit 1
+          fi

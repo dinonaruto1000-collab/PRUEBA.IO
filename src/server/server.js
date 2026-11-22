@@ -56,7 +56,11 @@ const addPlayer = (socket) => {
         console.log('[INFO] Player ' + clientPlayerData.name + ' connecting!');
         currentPlayer.init(generateSpawnpoint(), config.defaultPlayerMass);
 
-        if (map.players.findIndexByID(socket.id) > -1) {
+        if (map.players.data.length >= (config.maxPlayers || 100)) {
+            console.log('[INFO] Server is full, kicking.');
+            socket.emit('kick', 'Server is full! Please try again later.');
+            socket.disconnect();
+        } else if (map.players.findIndexByID(socket.id) > -1) {
             console.log('[INFO] Player ID is already connected, kicking.');
             socket.disconnect();
         } else if (!util.validNick(clientPlayerData.name)) {
@@ -88,6 +92,7 @@ const addPlayer = (socket) => {
 
     socket.on('respawn', () => {
         map.players.removePlayerByID(currentPlayer.id);
+        currentPlayer.init(generateSpawnpoint(), config.defaultPlayerMass);
         socket.emit('welcome', currentPlayer, {
             width: config.gameWidth,
             height: config.gameHeight
@@ -244,20 +249,20 @@ const tickPlayer = (currentPlayer) => {
 
         const cellCircle = currentCell.toCircle();
 
-        const eatenFoodIndexes = util.getIndexes(map.food.data, food => isEntityInsideCircle(food, cellCircle));
+        const eatenFoods = map.food.getEatenFoods(cellCircle, isEntityInsideCircle);
         const eatenMassIndexes = util.getIndexes(map.massFood.data, mass => canEatMass(currentCell, cellCircle, cellIndex, mass));
         const eatenVirusIndexes = util.getIndexes(map.viruses.data, virus => canEatVirus(currentCell, cellCircle, virus));
 
         if (eatenVirusIndexes.length > 0) {
             cellsToSplit.push(cellIndex);
-            map.viruses.delete(eatenVirusIndexes)
+            map.viruses.delete(eatenVirusIndexes);
         }
 
         let massGained = eatenMassIndexes.reduce((acc, index) => acc + map.massFood.data[index].mass, 0);
 
-        map.food.delete(eatenFoodIndexes);
+        map.food.deleteFoods(eatenFoods);
         map.massFood.remove(eatenMassIndexes);
-        massGained += (eatenFoodIndexes.length * config.foodMass);
+        massGained += (eatenFoods.length * config.foodMass);
         currentPlayer.changeCellMass(cellIndex, massGained);
     }
     currentPlayer.virusSplit(cellsToSplit, config.limitSplit, config.defaultPlayerMass);

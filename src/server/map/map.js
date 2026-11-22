@@ -9,7 +9,8 @@ exports.playerUtils = require('./player');
 
 exports.Map = class {
     constructor(config) {
-        this.food = new exports.foodUtils.FoodManager(config.foodMass, config.foodUniformDisposition);
+        this.config = config;
+        this.food = new exports.foodUtils.FoodManager(config.foodMass, config.foodUniformDisposition, config.gameWidth, config.gameHeight);
         this.viruses = new exports.virusUtils.VirusManager(config.virus);
         this.massFood = new exports.massFoodUtils.MassFoodManager();
         this.players = new exports.playerUtils.PlayerManager();
@@ -28,7 +29,6 @@ exports.Map = class {
             console.debug('[DEBUG] Removing ' + -foodDiff + ' food');
             this.food.removeExcess(-foodDiff);
         }
-        //console.debug('[DEBUG] Mass rebalanced!');
 
         const virusesToAdd = maxVirus - this.viruses.data.length;
         if (virusesToAdd > 0) {
@@ -37,24 +37,36 @@ exports.Map = class {
     }
 
     enumerateWhatPlayersSee(callback) {
+        const extractData = (player) => {
+            return {
+                x: player.x,
+                y: player.y,
+                cells: player.cells,
+                massTotal: Math.round(player.massTotal),
+                hue: player.hue,
+                id: player.id,
+                name: player.name,
+                skin: player.skin || null
+            };
+        };
+
         for (let currentPlayer of this.players.data) {
-            var visibleFood = this.food.data.filter(entity => isVisibleEntity(entity, currentPlayer, false));
-            var visibleViruses = this.viruses.data.filter(entity => isVisibleEntity(entity, currentPlayer));
-            var visibleMass = this.massFood.data.filter(entity => isVisibleEntity(entity, currentPlayer));
+            const screenW = (currentPlayer.screenWidth && currentPlayer.screenWidth > 0) ? currentPlayer.screenWidth : 1920;
+            const screenH = (currentPlayer.screenHeight && currentPlayer.screenHeight > 0) ? currentPlayer.screenHeight : 1080;
+            const halfW = screenW / 2 + 100;
+            const halfH = screenH / 2 + 100;
 
-            const extractData = (player) => {
-                return {
-                    x: player.x,
-                    y: player.y,
-                    cells: player.cells,
-                    massTotal: Math.round(player.massTotal),
-                    hue: player.hue,
-                    id: player.id,
-                    name: player.name
-                };
-            }
+            const foodCandidates = this.food.grid.queryRect(
+                currentPlayer.x - halfW,
+                currentPlayer.y - halfH,
+                currentPlayer.x + halfW,
+                currentPlayer.y + halfH
+            );
+            const visibleFood = foodCandidates.filter(entity => isVisibleEntity(entity, currentPlayer, false));
+            const visibleViruses = this.viruses.data.filter(entity => isVisibleEntity(entity, currentPlayer));
+            const visibleMass = this.massFood.data.filter(entity => isVisibleEntity(entity, currentPlayer));
 
-            var visiblePlayers = [];
+            const visiblePlayers = [];
             for (let player of this.players.data) {
                 for (let cell of player.cells) {
                     if (isVisibleEntity(cell, currentPlayer)) {
@@ -67,4 +79,4 @@ exports.Map = class {
             callback(extractData(currentPlayer), visiblePlayers, visibleFood, visibleMass, visibleViruses);
         }
     }
-}
+};

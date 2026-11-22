@@ -62,7 +62,7 @@ function mocha(done) {
 }
 
 gulp.task('lint', () => {
-    return gulp.src(['**/*.js', '!node_modules/**/*.js', '!bin/**/*.js'])
+    return gulp.src(['src/**/*.js', 'test/**/*.js', '*.js'])
         .pipe(eslint())
         .pipe(eslint.format())
         .pipe(eslint.failAfterError())

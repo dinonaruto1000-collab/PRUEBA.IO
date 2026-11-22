@@ -87,9 +87,10 @@ exports.Player = class {
         this.id = id;
         this.hue = Math.round(Math.random() * 360);
         this.name = null;
+        this.skin = null;
         this.admin = false;
-        this.screenWidth = null;
-        this.screenHeight = null;
+        this.screenWidth = 1920;
+        this.screenHeight = 1080;
         this.timeToMerge = null;
         this.setLastHeartbeat();
     }
@@ -108,8 +109,9 @@ exports.Player = class {
 
     clientProvidedData(playerData) {
         this.name = playerData.name;
-        this.screenWidth = playerData.screenWidth;
-        this.screenHeight = playerData.screenHeight;
+        this.skin = playerData.skin || null;
+        this.screenWidth = (playerData.screenWidth && playerData.screenWidth > 0) ? playerData.screenWidth : 1920;
+        this.screenHeight = (playerData.screenHeight && playerData.screenHeight > 0) ? playerData.screenHeight : 1080;
         this.setLastHeartbeat();
     }
 
