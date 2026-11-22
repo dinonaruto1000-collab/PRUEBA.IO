@@ -106,7 +106,7 @@ jobs:
       - name: "🚀 Smoke Test: Prueba de inicio del servidor compilado"
         run: |
           echo "Iniciando servidor en modo prueba..."
-          PORT=3999 node bin/server/server.js &
+          PORT=3999 node dist/server/server.js &
           SERVER_PID=$!
           sleep 4
           # Verifica que el proceso siga con vida tras arrancar
