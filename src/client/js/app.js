@@ -43,7 +43,11 @@ function startGame(type) {
     interpolatedCells.clear();
 
     if (!socket) {
-        socket = io({ query: "type=" + type });
+        // Backend URL for Socket.io. By default use the same origin (Netlify static site).
+        // Override by defining a global variable BACKEND_URL_ENV in your build if the server is hosted elsewhere.
+        var DEFAULT_BACKEND = window.location.origin;
+        var BACKEND_URL = (typeof BACKEND_URL_ENV !== "undefined" && BACKEND_URL_ENV) ? BACKEND_URL_ENV : DEFAULT_BACKEND;
+        socket = io(BACKEND_URL, { query: "type=" + type });
         setupSocket(socket);
     }
     if (!global.animLoopHandle) {
