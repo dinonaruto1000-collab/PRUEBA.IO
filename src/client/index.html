@@ -2,97 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Open Agar // Retro Arcade Edition</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-    <!-- Google Fonts for Arcade Theme -->
+    <title>Gracias, Profesor Eduard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Fonts – coding vibe -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/main.css" />
-    <!-- Audio -->
-    <audio id="split_cell" src="audio/split.mp3"></audio>
-    <audio id="spawn_cell" src="audio/spawn.mp3"></audio>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Simple stylesheet for the thank‑you page -->
+    <style>
+        body {
+            font-family: 'Source Code Pro', monospace;
+            background: #0d1117; /* dark VS Code theme */
+            color: #c9d1d9;
+            margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh;
+        }
+        .card {
+            background: #161b22; border: 2px solid #58a6ff; border-radius: 8px;
+            padding: 2rem; max-width: 600px; text-align: center; box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        h1 { font-size: 2.2rem; margin-bottom: 0.5rem; color: #58a6ff; }
+        p { font-size: 1.2rem; line-height: 1.5; margin: 0.8rem 0; }
+        .logo { width: 80px; margin-bottom: 1rem; }
+        a { color: #79c0ff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
 </head>
 <body>
-    <div id="gameAreaWrapper">
-        <div id="status"><span class="title">LEADERBOARD</span></div>
-        <div class="chatbox" id="chatbox">
-            <ul id="chatList" class="chat-list"></ul>
-            <input id="chatInput" type="text" class="chat-input" placeholder="Chat here..." maxlength="35" />
-        </div>
-        <div id="mobile">
-           <input type="image" id="split" class="split" src="img/split.png" alt="splitBtn">
-           <input type="image" id="feed" class="feed" src="img/feed.png" alt="feedBtn">
-        </div>
-        <canvas tabindex="1" id="cvs"></canvas>
+    <div class="card">
+        <img src="../screenshot.png" alt="Agar.io Clone" class="logo"/>
+        <h1>¡Gracias, Profesor Eduard!</h1>
+        <p>
+            Queremos expresarle nuestro más sincero agradecimiento por guiarnos a través del apasionante mundo del desarrollo, los repositorios y los pipelines de CI/CD.
+        </p>
+        <p>
+            Gracias a sus enseñanzas hemos aprendido a crear, probar, y desplegar aplicaciones como este proyecto de <em>Agar.io clone</em>.
+        </p>
+        <p>
+            <strong>¡Éxitos en sus próximas clases y proyectos!</strong>
+        </p>
+        <p>
+            <a href="https://github.com/owenashurst/agar.io-clone" target="_blank">Ver el repositorio del proyecto</a>
+        </p>
     </div>
-
-    <div id="startMenuWrapper">
-        <div id="startMenu" class="arcade-card">
-            <div class="arcade-header">
-                <h1 class="arcade-title">OPEN<span class="neon-pink">AGAR</span></h1>
-                <div class="arcade-subtitle">// RETRO ARCADE //</div>
-            </div>
-
-            <!-- Live Avatar / Skin Preview -->
-            <div class="preview-wrapper">
-                <canvas id="avatarPreview" width="130" height="130"></canvas>
-                <div id="previewLabel" class="preview-label">PLAYER CELL</div>
-            </div>
-
-            <!-- Nickname Input -->
-            <div class="input-container">
-                <input type="text" tabindex="0" autofocus placeholder="ENTER NICKNAME" id="playerNameInput" maxlength="25" autocomplete="off" />
-                <div class="input-error">Nick must be alphanumeric only!</div>
-            </div>
-
-            <!-- Skin Selector -->
-            <div class="skin-section">
-                <div class="section-title">CHOOSE YOUR SKIN</div>
-                <div id="skinPresets" class="skin-presets-grid">
-                    <!-- Populated dynamically via JS -->
-                </div>
-                <div class="custom-skin-container">
-                    <input type="text" id="customSkinInput" placeholder="OR PASTE CUSTOM IMAGE URL..." autocomplete="off" />
-                </div>
-            </div>
-
-            <!-- Buttons -->
-            <div class="button-group">
-                <button id="startButton" class="arcade-btn btn-play">▶ INSERT COIN &amp; PLAY</button>
-                <div class="btn-subgroup">
-                    <button id="spectateButton" class="arcade-btn btn-spectate">👁 SPECTATE</button>
-                    <button id="settingsButton" class="arcade-btn btn-settings">⚙ SETTINGS</button>
-                </div>
-            </div>
-
-            <!-- Settings Collapsible -->
-            <div id="settings" class="arcade-drawer">
-                <h3>GAME SETTINGS</h3>
-                <div class="settings-grid">
-                    <label class="arcade-checkbox"><input id="visBord" type="checkbox"> <span>Show Border</span></label>
-                    <label class="arcade-checkbox"><input id="showMass" type="checkbox"> <span>Show Mass</span></label>
-                    <label class="arcade-checkbox"><input id="continuity" type="checkbox"> <span>Off-Screen Move</span></label>
-                    <label class="arcade-checkbox"><input id="roundFood" type="checkbox" checked> <span>Rounded Food</span></label>
-                    <label class="arcade-checkbox"><input id="darkMode" type="checkbox"> <span>Dark Grid</span></label>
-                </div>
-            </div>
-
-            <!-- How to Play Drawer -->
-            <div id="instructions" class="arcade-drawer">
-                <h3>ARCADE CONTROLS</h3>
-                <ul>
-                    <li><b>Mouse</b>: Steer cell direction</li>
-                    <li><b>Spacebar</b>: Split cell in half</li>
-                    <li><b>W</b>: Eject mass / feed</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <!-- JS -->
-    <script src="//code.jquery.com/jquery-2.2.0.min.js"></script>
-    <script src="js/app.js"></script>
 </body>
 </html>
