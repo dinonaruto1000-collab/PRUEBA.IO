@@ -11,12 +11,12 @@ module.exports = (isProduction) => ({
         rules: getRules(isProduction)
     },
     plugins: [
-                    { from: "src/client/thanks.html", to: "thanks.html" },
+        new CopyWebpackPlugin({
+            patterns: [
+                { from: "src/client/thanks.html", to: "thanks.html" },
                 { from: "public/_redirects", to: "_redirects" }
             ]
         })
-    ]
-});
     ]
 });
 
