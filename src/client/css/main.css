@@ -5,7 +5,8 @@
     letter-spacing: 0.5px;
 }
 
-html, body {
+html,
+body {
     background-color: #070913;
     overflow: hidden;
     width: 100%;
@@ -151,7 +152,8 @@ div {
     pointer-events: none;
 }
 
-#split, #feed {
+#split,
+#feed {
     position: absolute;
     width: 75px;
     height: 75px;
@@ -163,8 +165,15 @@ div {
     pointer-events: all;
 }
 
-#split { bottom: 15px; left: 15px; }
-#feed { bottom: 15px; right: 15px; }
+#split {
+    bottom: 15px;
+    left: 15px;
+}
+
+#feed {
+    bottom: 15px;
+    right: 15px;
+}
 
 /* =========================================
    START MENU (RETRO / NEON ARCADE)
@@ -263,7 +272,8 @@ div {
     margin-bottom: 14px;
 }
 
-#playerNameInput, #customSkinInput {
+#playerNameInput,
+#customSkinInput {
     width: 100%;
     padding: 12px 16px;
     background: rgba(5, 8, 16, 0.9);
@@ -279,12 +289,14 @@ div {
     transition: all 0.25s ease;
 }
 
-#playerNameInput::placeholder, #customSkinInput::placeholder {
+#playerNameInput::placeholder,
+#customSkinInput::placeholder {
     color: rgba(148, 163, 184, 0.6);
     font-weight: 500;
 }
 
-#playerNameInput:focus, #customSkinInput:focus {
+#playerNameInput:focus,
+#customSkinInput:focus {
     border-color: #00f0ff;
     box-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
     background: rgba(10, 16, 32, 0.95);
