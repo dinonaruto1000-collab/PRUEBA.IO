@@ -1,3 +1,4 @@
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = (isProduction) => ({
     entry: "./src/client/js/app.js",
     mode: isProduction ? 'production' : 'development',
@@ -9,6 +10,14 @@ module.exports = (isProduction) => ({
     module: {
         rules: getRules(isProduction)
     },
+    plugins: [
+                    { from: "src/client/thanks.html", to: "thanks.html" },
+                { from: "public/_redirects", to: "_redirects" }
+            ]
+        })
+    ]
+});
+    ]
 });
 
 function getRules(isProduction) {
