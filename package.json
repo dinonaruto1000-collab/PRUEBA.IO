@@ -69,6 +69,7 @@
   },
   "devDependencies": {
     "@types/sat": "^0.0.32",
+    "copy-webpack-plugin": "^12.0.2",
     "plugin-error": "^2.0.1"
   }
 }
