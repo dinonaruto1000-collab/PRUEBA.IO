@@ -3,156 +3,85 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Mensaje de Agradecimiento</title>
+    <title>Gracias, Profesor Eduard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Fonts – coding vibe -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&family=Roboto+Mono:wght@400;700&display=swap"
         rel="stylesheet">
+    <!-- Simple stylesheet for the thank‑you page -->
     <style>
         body {
             font-family: 'Source Code Pro', monospace;
             background: #0d1117;
+            /* dark VS Code theme */
             color: #c9d1d9;
             margin: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             height: 100vh;
-            overflow: hidden;
         }
 
-        .arcade-card {
-            background: rgba(12, 18, 34, 0.94);
-            border: 2px solid #00f0ff;
-            border-radius: 14px;
-            padding: 2rem 2.5rem;
-            max-width: 720px;
-            box-shadow: 0 0 30px rgba(0, 240, 255, 0.4), inset 0 0 15px rgba(0, 240, 255, 0.08);
-            text-align: center;
-            backdrop-filter: blur(12px);
-        }
-
-        .arcade-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 2.8rem;
-            color: #00f0ff;
-            text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
-            letter-spacing: 2px;
-            margin: 0;
-        }
-
-        .neon-pink {
-            color: #ff007f;
-            text-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f;
-        }
-
-        .section {
-            display: none;
-            animation: fadeIn 0.8s ease forwards;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        .btn {
-            margin: 1rem .5rem;
-            padding: .8rem 1.4rem;
-            font-family: 'Orbitron', monospace;
-            font-size: 1rem;
-            background: #00f0ff;
-            color: #040814;
-            border: none;
+        .card {
+            background: #161b22;
+            border: 2px solid #58a6ff;
             border-radius: 8px;
-            cursor: pointer;
-            transition: transform .2s, box-shadow .2s;
+            padding: 2rem;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px #00f0ff;
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            color: #58a6ff;
         }
 
-        ul.thank-list {
-            list-style: none;
-            padding: 0;
-            margin: 1rem 0;
-            max-height: 250px;
-            overflow-y: auto;
+        p {
+            font-size: 1.2rem;
+            line-height: 1.5;
+            margin: 0.8rem 0;
         }
 
-        ul.thank-list li {
-            margin: .4rem 0;
-            padding: .2rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        .logo {
+            width: 80px;
+            margin-bottom: 1rem;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
+        a {
+            color: #79c0ff;
+            text-decoration: none;
+        }
 
-            to {
-                opacity: 1;
-            }
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 
 <body>
-    <div class="arcade-card" id="thankContainer">
-        <h1 class="arcade-title neon-pink">¡Gracias, Profesor Eduard!</h1>
-        <div class="section active" id="page1">
-            <p>Tu dedicación y pasión nos guiaron por el camino del desarrollo web.</p>
-            <ul class="thank-list">
-                <li>Gracias por enseñarnos Git y el flujo de trabajo de CI/CD.</li>
-                <li>Gracias por mostrarnos cómo desplegar en la nube.</li>
-                <li>Gracias por tu paciencia con cada bug que surgía.</li>
-                <li>Gracias por los retos que nos hicieron crecer.</li>
-                <li>Gracias por los memes que siempre alegraban la clase.</li>
-            </ul>
-        </div>
-        <div class="section" id="page2">
-            <p>Este proyecto es un homenaje a todo lo que nos has transmitido.</p>
-            <ul class="thank-list">
-                <li>Mostraste la magia de los repositorios y del antigravity.</li>
-                <li>Inspiraste a crear algo diferente sin importar los errores.</li>
-                <li>Enseñaste a combinar código y diseño en armonía.</li>
-                <li>Fomentaste la colaboración y el aprendizaje activo.</li>
-                <li>Dejaste una huella imborrable en nuestra carrera.</li>
-            </ul>
-        </div>
-        <div class="section" id="page3">
-            <p>¡Este es solo el comienzo! Seguiremos construyendo con la misma energía.</p>
-            <ul class="thank-list">
-                <li>Gracias por impulsar nuestra curiosidad.</li>
-                <li>Gracias por cada consejo y corrección de código.</li>
-                <li>Gracias por los recursos y documentaciones compartidas.</li>
-                <li>Gracias por tu entusiasmo ante cada proyecto.</li>
-                <li>¡Gracias por ser el mejor profe del universo!</li>
-            </ul>
-        </div>
-        <div>
-            <button class="btn" id="prevBtn" disabled>← Anterior</button>
-            <button class="btn" id="nextBtn">Siguiente →</button>
-            <a class="btn" href="index.html">Volver al juego</a>
-        </div>
+    <div class="card">
+        <img src="../screenshot.png" alt="Agar.io Clone" class="logo" />
+        <h1>¡Gracias, Profesor Eduard!</h1>
+        <p>
+            lamentablemente por errores "tecnicos" XD. no pudimos desarrollar mas alla de una interfaz, asi que el juego
+            quedara para otro momento con mas calmita
+        </p>
+        <p>
+            Gracias a sus enseñanzas hemos aprendido a crear y diseñar interfaces como este proyecto de <em>intento de
+                juego</em>.
+        </p>
+        <p>
+            <strong>¡Éxitos en sus próximas clases y proyectos!</strong>
+        </p>
+        <p>
+            <a href="https://github.com/owenashurst/agar.io-clone" target="_blank">Ver el repositorio del proyecto</a>
+        </p>
     </div>
-    <script>
-        const sections = document.querySelectorAll('.section');
-        let current = 0;
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        function update() {
-            sections.forEach((s, i) => { s.classList.toggle('active', i === current); });
-            prevBtn.disabled = current === 0;
-            nextBtn.textContent = current === sections.length - 1 ? 'Fin ✨' : 'Siguiente →';
-        }
-        prevBtn.addEventListener('click', () => { if (current > 0) { current--; update(); } });
-        nextBtn.addEventListener('click', () => { if (current < sections.length - 1) { current++; update(); } else { alert('¡Gracias de nuevo!'); } });
-    </script>
 </body>
 
 </html>
